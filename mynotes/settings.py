@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'channels',
     'notes',
+    
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_WHITElIST = [
+    'localhost:3000', 
+]
 ROOT_URLCONF = 'mynotes.urls'
 
 TEMPLATES = [
