@@ -37,15 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'corsheaders',
     'rest_framework',
+
     'channels',
     'notes',
     
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,6 +78,7 @@ TEMPLATES = [
     },
 ]
 
+#for http request
 WSGI_APPLICATION = 'mynotes.wsgi.application'
 
 
@@ -127,3 +130,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# ASGI (Asynchronous Server Gateway Interface) is a spiritual successor to WSGI, intended to provide a standard interface between 
+# async-capable Python web servers, frameworks, and applications.
+ASGI_APPLICATION = 'mynotes.routing.application' # for async web sockets requests 
+
+
+
+#bridge b/w channel package and  message boroker  is redis
+CHANNEL_LAYERS ={
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            "HOSTS":[('127.0.0.1',6379)],
+        },
+    },
+}
