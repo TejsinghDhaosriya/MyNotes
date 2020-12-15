@@ -25,7 +25,7 @@ SECRET_KEY = 'g+hynu(8ii4@ril-*okyza8+n+08isgx88(h7iqog305qbgtw4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,16 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'corsheaders',
     'rest_framework',
 
+    'corsheaders',
     'channels',
     'notes',
     
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', 
+     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,9 +57,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITElIST = [
-    'localhost:3000', 
-]
+# CORS_ORIGIN_WHITElIST = [
+#     '127.0.0.1:3000',
+#     'localhost',
+#     'localhost:3000'
+# ]
+
+CORS_ORIGIN_ALLOW_ALL = True   
 ROOT_URLCONF = 'mynotes.urls'
 
 TEMPLATES = [
@@ -146,3 +150,7 @@ CHANNEL_LAYERS ={
         },
     },
 }
+
+
+
+# APPEND_SLASH=False

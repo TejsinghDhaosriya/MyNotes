@@ -2,37 +2,34 @@ import React ,{Component} from 'react';
 import {Button,Container,Row,Col} from 'reactstrap';
 import ListNotes from './components/ListNotes';
 
-let notes_temp=[
-  {
-    'id':1,
-    "title":'This is react note data',
-    'content':'This is the content'
-  },
-  {
-    'id':2,
-    "title":'My second ntoe',
-    'content':'This is the content'
-  },
-  {
-    'id':3,
-    "title":'3 rd note ',
-    'content':'This is  3 the content'
-  },
-]
+import {fetchNotes,fetchNote,updateNote, addNote} from './api';
+import AddNoteForm from './components/AddNote';
+ 
 
 class App extends Component
 {
 constructor(props){
   super(props);
   this.state={
-    notes:notes_temp,
+    notes:[],
     current_note_id:0,
     is_creating:true,
+    is_fetching:true
 
   }
 
   this.handleItemClick=this.handleItemClick.bind(this);
   this.handleAddNote=this.handleAddNote.bind(this);
+  this.getData=this.getData.bind(this);
+  this.handleSaveNote=this.handleSaveNote.bind(this);
+}
+componentDidMount(){
+  this.getData();
+}
+async getData(){
+  let data = await fetchNotes();
+  console.log('............',data)
+  this.setState({notes:data});
 }
 handleItemClick(id){
   this.setState((prevState)=>{
@@ -44,6 +41,10 @@ handleAddNote(){
     return{is_creating:true}
   })
 
+}
+async handleSaveNote(data){
+   await addNote(data);
+   this.getData();
 }
 
 render() {
@@ -63,9 +64,8 @@ render() {
           <ListNotes notes={this.state.notes} handleItemClick={(id)=>this.handleItemClick(id)}/>
           </Col>
         <Col xs="8">
-          <p>Content/Editing here.</p>
           {
-            this.state.is_creating ? "Creating now..." :`Editing note with id : ${this.state.current_note_id}`
+            this.state.is_creating ? <AddNoteForm handleSave={this.handleSaveNote}/> :`Editing note with id : ${this.state.current_note_id}`
           }
         </Col>
       </Row>
