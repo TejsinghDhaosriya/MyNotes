@@ -16,33 +16,15 @@ export const fetchNotes=async()=>{
         return data
     })
 }
-// export const fetchNotes=axios.get(url,{
-//     headers:{
-//                     Accept:'application/json',
-//                     'Content-Type':'application/json',
-                    
-//                     'Access-Control-Allow-Origin': '*'
-//                 }
-// })
-//   .then(function (response) {
-//     // handle success
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log(error);
-//   })
-//   .then(function () {
-//     // always executed
-//   });
 
 export const fetchNote=(id)=>{
-    return {
-        "id":123,
-        'title':"hello",
-        "content":'Testing....'
+    return fetch(`${url +id}`,{})
+     .then(res=>res.json())
+     .then(data=>{
+       return data;
+     })
+
     }
-}
 
 
 export const addNote =(note)=>{

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'notes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,8 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'corsheaders',
-    'channels',
-    'notes',
+    
     
 ]
 
@@ -137,7 +138,7 @@ STATIC_URL = '/static/'
 
 # ASGI (Asynchronous Server Gateway Interface) is a spiritual successor to WSGI, intended to provide a standard interface between 
 # async-capable Python web servers, frameworks, and applications.
-ASGI_APPLICATION = 'mynotes.routing.application' # for async web sockets requests 
+ASGI_APPLICATION = 'mynotes.asgi.application' # for async web sockets requests 
 
 
 
@@ -146,7 +147,7 @@ CHANNEL_LAYERS ={
     'default':{
         'BACKEND':'channels_redis.core.RedisChannelLayer',
         'CONFIG':{
-            "HOSTS":[('127.0.0.1',6379)],
+            "hosts":[('127.0.0.1',6379)],
         },
     },
 }
@@ -154,3 +155,5 @@ CHANNEL_LAYERS ={
 
 
 # APPEND_SLASH=False
+CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
